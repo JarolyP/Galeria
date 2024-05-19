@@ -1,1 +1,1 @@
-console.log('HOla mundo!')
+import './cargarCategorias';
