@@ -1,5 +1,5 @@
-import dataCategorias from '../datos/categorias';
-const {categorias} = dataCategorias;
+import datosCategorias from './datos/categorias';
+const {categorias} = datosCategorias;
 const contenedorCategorias = document.getElementById('categorias');
 
 categorias.forEach((categoria) => {

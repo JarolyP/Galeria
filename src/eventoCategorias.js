@@ -1,11 +1,13 @@
-import dataFotos from "../datos/fotos";
+import dataFotos from "./datos/fotos";
 const contenedorCategorias = document.getElementById("categorias");
+
+
 const galeria = document.getElementById("galeria");
 
 contenedorCategorias.addEventListener("click", (e) => {
   e.preventDefault();
 
-  if (e.target.closest("a")) {
+  if (e.target.closest('a')) {
     galeria.classList.add("galeria--active");
     document.body.style.overflow = "hidden";
 
@@ -15,7 +17,7 @@ contenedorCategorias.addEventListener("click", (e) => {
     fotos.forEach((foto) => {
       const slide = `
             <a href="#" class="galeria__carousel-slide">
-			    <img src="${foto.ruta}" alt="" />
+			    <img class="galeria__carousel-image" src="${foto.ruta}" alt="" />
 			</a>
             `;
             galeria.querySelector(".galeria__carousel-slides").innerHTML += slide;

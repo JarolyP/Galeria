@@ -1,5 +1,5 @@
-import data from './fotos';
-const { fotos } = data;
+import datos from './fotos';
+const { fotos } = datos;
 
 export default {
 	categorias: [
