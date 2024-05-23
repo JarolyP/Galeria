@@ -1,11 +1,10 @@
 import cerrarGaleria from "./cerrarGaleria";
 
-
-const galeria = document.getElemntById('galeria');
+const galeria = document.getElementById('galeria');
 galeria.addEventListener('click', (e) => {
-    const boton = e.target.closest('button');
+    const boton = e.target.closest('button')
 
-    if(boton?.dataset?.accion === 'cerrar-galeria'){
+    if(boton?.dataset?.accion == 'cerrar-galeria'){
         cerrarGaleria();
     }
 })
