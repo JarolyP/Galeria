@@ -1,4 +1,5 @@
 import cerrarGaleria from "./cerrarGaleria";
+import slideClick from "./slideClick";
 
 const galeria = document.getElementById('galeria');
 galeria.addEventListener('click', (e) => {
@@ -6,5 +7,9 @@ galeria.addEventListener('click', (e) => {
 
     if(boton?.dataset?.accion == 'cerrar-galeria'){
         cerrarGaleria();
+    }
+
+    if(e.target.dataset.id){
+        slideClick(e);
     }
 })

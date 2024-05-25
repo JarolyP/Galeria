@@ -1,6 +1,6 @@
 'use strict';
 
-var dataFotos = {
+var datos = {
 	fotos: {
 		america: [
 			{
@@ -431,7 +431,7 @@ var dataFotos = {
 	},
 };
 
-const { fotos } = dataFotos;
+const { fotos } = datos;
 
 var dataCategorias = {
 	categorias: [
@@ -468,36 +468,72 @@ categorias.forEach((categoria) => {
 	contenedorCategorias$1.append(nuevaCategoria);
 });
 
-const contenedorCategorias = document.getElementById('categorias');
-const galeria$2 = document.getElementById('galeria');
+const galeria$3 = document.getElementById('galeria');
+const cargarImagen = (id, nombre, ruta, descripcion) => {
+    galeria$3.querySelector('.galeria__imagen').src = ruta;
+    galeria$3.querySelector('.galeria__imagen').dataset.idImagen = id;
+    galeria$3.querySelector('.galeria__titulo').innerText = nombre;
+    galeria$3.querySelector('.galeria__descripcion-imagen-activa').innerHTML = descripcion;
+};
+
+const contenedorCategorias = document.getElementById("categorias");
+const galeria$2 = document.getElementById("galeria");
 
 contenedorCategorias.addEventListener('click', (e) => {
-	e.preventDefault();
+  e.preventDefault();
 
-	if (e.target.closest('a')) {
-    galeria$2.classList.add('galeria--active');
-    document.body.style.overflow = 'hidden';
+  if (e.target.closest('a')) {
+    galeria$2.classList.add("galeria--active");
+    document.body.style.overflow = "hidden";
 
-		const categoriaActiva = e.target.closest('a').dataset.categoria;
-    const fotos = dataFotos.fotos[categoriaActiva];
+    const categoriaActiva = e.target.closest('a').dataset.categoria;
+    galeria$2.dataset.categoria = categoriaActiva;
     
+    const fotos = datos.fotos[categoriaActiva];
+    const carousel = galeria$2.querySelector(".galeria__carousel-slides");
+
+    const {id, nombre, ruta, descripcion} = fotos[0];
+    cargarImagen(id, nombre, ruta, descripcion);
+
+    carousel.innerHTML = '';
+
     fotos.forEach((foto) => {
       const slide = `
         <a href="#" class="galeria__carousel-slide">
-          <img class="galeria__carousel-image" src="${foto.ruta}" alt="" />
+          <img class="galeria__carousel-image" src="${foto.ruta}" data-id="${foto.id}" alt="" />
         </a>
       `;
-      galeria$2.querySelector('.galeria__carousel-slides').innerHTML += slide; 
+      galeria$2.querySelector(".galeria__carousel-slides").innerHTML += slide;
     });
 
-   galeria$2.querySelector('.galeria__carousel-slide').classList.add('galeria__carousel-slide--active');
-	}
- });
+    galeria$2
+      .querySelector(".galeria__carousel-slide")
+      .classList.add("galeria__carousel-slide--active");
+  }
+});
 
 const galeria$1 = document.getElementById('galeria');
 const cerrarGaleria = () => {
     galeria$1.classList.remove('galeria--active');
     document.body.style.overflow = '';
+};
+
+const slideClick = (e) => {
+    let ruta, nombre, descripcion;
+
+    const id = parseInt(e.target.dataset.id);
+    const galeria = document.getElementById('galeria');
+    const categoriaActiva = galeria.dataset.categoria;
+
+    datos.fotos[categoriaActiva].forEach((foto) => {
+        if(foto.id === id){
+            ruta = foto.ruta;
+            nombre = foto.nombre;
+            descripcion = foto.descripcion;
+        }
+    });
+
+    cargarImagen(id, nombre, ruta, descripcion);
 };
 
 const galeria = document.getElementById('galeria');
@@ -506,5 +542,9 @@ galeria.addEventListener('click', (e) => {
 
     if(boton?.dataset?.accion == 'cerrar-galeria'){
         cerrarGaleria();
+    }
+
+    if(e.target.dataset.id){
+        slideClick(e);
     }
 });
