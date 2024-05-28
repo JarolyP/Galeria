@@ -14,7 +14,16 @@ const carousel = (direccion) => {
        })
 
        if (direccion === 'atras') {
-        
+            const pirmerSlideVisible = slideVisibles[0];
+            const indexPrimerSlideVisible = entradas.indexOf(pirmerSlideVisible)
+
+            if(indexPrimerSlideVisible >= 1) {
+                entradas[indexPrimerSlideVisible - 1].target.scrollIntoView({
+                    behavior: 'smooth',
+                    inline: 'start',
+                })
+            }
+            
        } else if (direccion === 'adelante'){
             const ultimoSlideVisible = slideVisibles[slideVisibles.length - 1 ]
             const indexUltimoSlideVisible = entradas.indexOf(ultimoSlideVisible)
