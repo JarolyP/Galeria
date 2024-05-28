@@ -7,7 +7,25 @@ const carousel = (direccion) => {
     }
 
     const observer = new IntersectionObserver((entradas) => {
-        console.log(entradas[0]);
+       const slideVisibles = entradas.filter((entrada) => {
+        if(entrada.isIntersecting === true){
+            return entrada;
+        }
+       })
+
+       if (direccion === 'atras') {
+        
+       } else if (direccion === 'adelante'){
+            const ultimoSlideVisible = slideVisibles[slideVisibles.length - 1 ]
+            const indexUltimoSlideVisible = entradas.indexOf(ultimoSlideVisible)
+
+            if(entradas.length - 1 > indexUltimoSlideVisible){
+                entradas[indexUltimoSlideVisible + 1].target.scrollIntoView({
+                    behavior: 'smooth',
+                    inline: 'start',
+                })
+            }
+       }
 
         const slides = galeria.querySelectorAll('.galeria__carousel-slide')
         slides.forEach(slide => {
